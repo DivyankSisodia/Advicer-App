@@ -2,6 +2,7 @@
 
 import 'package:advicer_app/3_application/core/services/theme_services.dart';
 import 'package:advicer_app/3_application/pages/advices/bloc/advicer_bloc.dart';
+import 'package:advicer_app/3_application/pages/advices/cubit/advicer_cubit.dart';
 import 'package:advicer_app/3_application/pages/advices/widgets/advice_field.dart';
 import 'package:advicer_app/3_application/pages/advices/widgets/custom_btn.dart';
 import 'package:advicer_app/3_application/pages/advices/widgets/error_msg.dart';
@@ -15,7 +16,7 @@ class AdvicerPageWrapperProvider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AdvicerBloc(),
+      create: (context) => AdvicerCubit(),
       child: const AdvicePage(),
     );
   }
@@ -47,24 +48,24 @@ class AdvicePage extends StatelessWidget {
         child: Column(
           children: [
             Expanded(
-              child: Center(child: BlocBuilder<AdvicerBloc, AdvicerState>(
+              child: Center(child: BlocBuilder<AdvicerCubit, AdvicerCubitState>(
                 builder: (context, state) {
-                  if (state is AdvicerInitial) {
+                  if (state is AdvicerCubitInitial) {
                     return Text(
                       'Your advice will appear here',
                       style: themeData.textTheme.titleLarge,
                     );
-                  } else if (state is AdvicerStateLoading) {
+                  } else if (state is AdvicerCubitStateLoading) {
                     return CircularProgressIndicator(
                       color: themeData.colorScheme.secondary,
                     );
                   }
-                  else if(state is AdvicerStateLoaded){
+                  else if(state is AdvicerCubitStateLoaded){
                     return AdviceField(
                       advice: state.advice,
                     );
                   }
-                  else if(state is AdvicerStateError){
+                  else if(state is AdvicerCubitStateError){
                     return ErrorMsg(
                       message: state.errormsg,
                     );
