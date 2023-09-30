@@ -1,4 +1,6 @@
 part of 'advicer_bloc.dart';
 
 @immutable
-sealed class AdvicerEvent {}
+abstract class AdvicerEvent {}
+
+class AdvicerRequestEvent extends AdvicerEvent {}

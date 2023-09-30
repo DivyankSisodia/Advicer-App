@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import
+
 import 'package:advicer_app/3_application/core/services/theme_services.dart';
 import 'package:advicer_app/3_application/pages/advices/bloc/advicer_bloc.dart';
 import 'package:advicer_app/3_application/pages/advices/widgets/advice_field.dart';
@@ -45,11 +47,32 @@ class AdvicePage extends StatelessWidget {
         child: Column(
           children: [
             Expanded(
-                child: Center(
-              child: ErrorMsg(
-                message: 'UUUppps! Something went wrong',
-              ),
-            )),
+              child: Center(child: BlocBuilder<AdvicerBloc, AdvicerState>(
+                builder: (context, state) {
+                  if (state is AdvicerInitial) {
+                    return Text(
+                      'Your advice will appear here',
+                      style: themeData.textTheme.titleLarge,
+                    );
+                  } else if (state is AdvicerStateLoading) {
+                    return CircularProgressIndicator(
+                      color: themeData.colorScheme.secondary,
+                    );
+                  }
+                  else if(state is AdvicerStateLoaded){
+                    return AdviceField(
+                      advice: state.advice,
+                    );
+                  }
+                  else if(state is AdvicerStateError){
+                    return ErrorMsg(
+                      message: state.errormsg,
+                    );
+                  }
+                  return const SizedBox();
+                },
+              )),
+            ),
             const SizedBox(
               height: 200,
               child: Center(

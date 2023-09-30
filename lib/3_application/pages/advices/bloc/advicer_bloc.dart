@@ -7,7 +7,7 @@ part 'advicer_state.dart';
 
 class AdvicerBloc extends Bloc<AdvicerEvent, AdvicerState> {
   AdvicerBloc() : super(AdvicerInitial()) {
-    on<AdvicerEvent>((event, emit) async {
+    on<AdvicerRequestEvent>((event, emit) async {
       emit(AdvicerStateLoading());
 
       // executing the business logic
