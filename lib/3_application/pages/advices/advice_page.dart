@@ -1,4 +1,5 @@
 import 'package:advicer_app/3_application/core/services/theme_services.dart';
+import 'package:advicer_app/3_application/pages/advices/widgets/advice_field.dart';
 import 'package:advicer_app/3_application/pages/advices/widgets/custom_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -24,12 +25,18 @@ class AdvicePage extends StatelessWidget {
               })
         ],
       ),
-      body: const Padding(
-        padding: EdgeInsets.symmetric(horizontal:50),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal:50),
         child: Column(
           children: [
-            Expanded(child: Placeholder()),
-            SizedBox(
+            Expanded(
+              child: Center(
+                child: AdviceField(
+                  advice: 'Press the button to get advice',
+                ),
+              )
+            ),
+            const SizedBox(
               height:200,
               child:Center(
                 child: CustomButton(),
