@@ -1,8 +1,23 @@
 import 'package:advicer_app/3_application/core/services/theme_services.dart';
+import 'package:advicer_app/3_application/pages/advices/bloc/advicer_bloc.dart';
 import 'package:advicer_app/3_application/pages/advices/widgets/advice_field.dart';
 import 'package:advicer_app/3_application/pages/advices/widgets/custom_btn.dart';
+import 'package:advicer_app/3_application/pages/advices/widgets/error_msg.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
+
+class AdvicerPageWrapperProvider extends StatelessWidget {
+  const AdvicerPageWrapperProvider({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => AdvicerBloc(),
+      child: const AdvicePage(),
+    );
+  }
+}
 
 class AdvicePage extends StatelessWidget {
   const AdvicePage({super.key});
@@ -26,19 +41,18 @@ class AdvicePage extends StatelessWidget {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal:50),
+        padding: const EdgeInsets.symmetric(horizontal: 50),
         child: Column(
           children: [
             Expanded(
-              child: Center(
-                child: AdviceField(
-                  advice: 'Press the button to get advice',
-                ),
-              )
-            ),
+                child: Center(
+              child: ErrorMsg(
+                message: 'UUUppps! Something went wrong',
+              ),
+            )),
             const SizedBox(
-              height:200,
-              child:Center(
+              height: 200,
+              child: Center(
                 child: CustomButton(),
               ),
             ),
